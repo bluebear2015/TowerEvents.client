@@ -1,31 +1,30 @@
 <template class="">
     <div class="border border-dark rounded elevation-5 towerEvent-card">
         <router-link :to="{ name: 'Event Details', params: { eventId: event.id } }">
-            <div v-if="!event.isCanceled">
+            <div>
                 <img class=" border rounded-top border-2 border-dark" :src="event.coverImg" alt='broke' />
 
             </div>
-            <div v-else class="bgRed text-center image-fluid border border-warning border-5">
+            <!-- <div v-else class="bgRed text-center image-fluid border border-warning border-5">
                 <img class="" alt="logo" src="../assets/img/giphy_(2).gif" height="35" />
                 <h3 class="fw-bold text-dark text-decoration-underline">CANCELED</h3>
-            </div>
+            </div> -->
 
         </router-link>
         <div class="border border-2 border-dark text-center p-2 rounded-bottom text-white fw-bold bgGreen">
 
             <p>
-            <div class="border border-1 m-1 border-warning bgBlue rounded elevation-5">
-                <span class="text-bold text-dark">Spots Left:</span> {{ event.capacity - event.ticketCount }}
-            </div>
+
             <div class="border border-2 border-warning bgBlue rounded elevation-5">
                 <div>
                     <span class="text-bold text-dark">Location:</span> {{ event.location }}
                 </div>
+
                 <div>
                     <span class="text-bold text-dark">Date:</span> {{ event.startDate }}
                 </div>
-                <div><span class="text-bold text-dark">Event Type:</span>{{ event.type }}</div>
-                <div>{{ event.ticketCount }}</div>
+                <div><span class="text-bold text-dark">Event Name:</span>{{ event.name }}</div>
+
             </div>
             </p>
             <!-- <div class="d-flex justify-content-evenly" v-if="user.isAuthenticated && !event.isCanceled">
@@ -74,6 +73,15 @@ export default {
         return {
             account: computed(() => AppState.account),
             user: computed(() => AppState.user),
+            hasTicket: computed(() => {
+                const tickets = AppState?.tickets;
+
+                if (Array.isArray(tickets)) {
+                    return !!tickets.some(t => t.accountId === AppState?.user.id);
+                }
+
+                return false;
+            }),
             canceledImage,
 
 

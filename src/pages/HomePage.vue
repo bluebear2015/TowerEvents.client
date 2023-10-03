@@ -31,7 +31,7 @@
       </div>
     </div>
     <section class="row d-flex">
-      <div class="col-4 my-3 p-4" v-for="e in event" :key="e.id">
+      <div class="col-3 my-3" v-for="e in event" :key="e.id">
 
         <TowerEventCard :event="e" />
       </div>
@@ -47,6 +47,7 @@ import { eventsService } from '../services/EventsService.js'
 import { computed, ref } from 'vue'
 import { AppState } from '../AppState.js'
 import Pop from '../utils/Pop.js'
+import { ticketsService } from '../services/TicketsService.js'
 
 
 
@@ -55,6 +56,7 @@ export default {
     const filterBy = ref('')
     onMounted(() => {
       getEvents();
+
     })
 
     async function getEvents() {
@@ -66,6 +68,14 @@ export default {
         logger.log(error)
       }
     }
+    // async function getTicket(ticketId) {
+    //   try {
+    //     logger.log('lets get tickets!')
+    //     await ticketsService.getTicket(ticketId)
+    //   } catch (error) {
+    //     Pop.error(error.message)
+    //   }
+    // }
 
     return {
       filterBy,
@@ -77,7 +87,8 @@ export default {
           return AppState.events.filter(event => event.type == filterBy.value)
         }
       }),
-      user: computed(() => AppState.user)
+      user: computed(() => AppState.user),
+
 
     }
   }

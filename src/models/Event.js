@@ -1,10 +1,12 @@
 export class Event {
     constructor(data) {
         this.id = data.id
-        this.type = data.type
+        this.type = data.type || null
         this.coverImg = data.coverImg
         this.isCanceled = data.isCanceled
         this.creatorId = data.creatorId
+        this.creatorName = data.creator.name
+        this.creatorPicture = data.creator.picture
         this.description = data.description
         this.location = data.location
         this.capacity = data.capacity
@@ -20,5 +22,6 @@ export class Event {
         this.eventId = data.eventId
         this.creator = data.creator
         this.comments = data.comments
+        this.tickets = data.tickets
     }
 }

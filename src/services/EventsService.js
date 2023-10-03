@@ -12,14 +12,15 @@ class EventsService {
 
         const res = await api.get("api/events")
         AppState.events = res.data.map(e => new Event(e))
-        logger.log('miles', res.data)
+        // logger.log('miles', res.data)
 
 
     }
-    async deleteEvent(eventId) {
+    async cancelEvent(eventId) {
 
         const res = await api.delete("api/events/" + eventId)
         logger.log(res.data)
+
         AppState.events = AppState.events.filter(c => c.id != eventId)
         return res.data
 
@@ -29,6 +30,7 @@ class EventsService {
         const res = await api.post("api/events", formData)
         logger.log(res.data)
         AppState.events.push(new Event(res.data))
+
         const newEvent = new Event(res.data)
         AppState.events.unshift(newEvent)
         return res.data

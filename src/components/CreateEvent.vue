@@ -20,7 +20,8 @@
 
 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Name" v-model="editable.name">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="CreatorName"
+                        v-model="editable.name">
                     <label for="floatingInput">Name</label>
                 </div>
 
@@ -56,9 +57,9 @@
                     <label for="floatingInput">ticket Count</label>
                 </div> -->
 
-
+                EVENT TYPE
                 <div>
-                    <select name="type" id="type" v-model="editable.type">
+                    <select placeholder="Event Type" name="type" id="type" v-model="editable.type">
                         <option value="other">other</option>
                         <option value="digital">digital</option>
                         <option value="convention">convention</option>

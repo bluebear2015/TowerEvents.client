@@ -44,6 +44,10 @@
       </div>
     </div>
 
+    <div v-for="t in tickets" :key="t.id">
+      <TicketholderCard :ticketholder="t" />
+    </div>
+
 
 
     <div class="ticket" v-for="ticket in tickets" :key="ticket.id">
@@ -66,38 +70,31 @@
 
 <script>
 import { computed, onMounted } from 'vue';
-
 import { AppState } from '../AppState';
-import { ticketsService } from '../services/TicketsService.js';
-import { logger } from '../utils/Logger.js';
-
+import Pop from '../utils/Pop';
+import { logger } from '../utils/Logger';
+import { ticketsService } from '../services/TicketsService';
 export default {
-
-
   setup() {
-
-    async function getAccountTickets() {
+    async function getMyTicketsFromApi() {
       try {
-
-        await ticketsService.getAccountTickets()
+        await ticketsService.getMyTicketsFromApi()
       } catch (error) {
-        logger.error(error)
-
+        Pop.error(error, '[AccountPage: getMyTicketsFromApi()]')
+        logger.log(error)
       }
     }
-
-
     onMounted(() => {
-      getAccountTickets()
-    }
-    )
+      getMyTicketsFromApi()
+    })
     return {
-      tickets: computed(() => AppState.tickets),
       account: computed(() => AppState.account),
+      tickets: computed(() => AppState?.tickets)
     }
   }
 }
 </script>
+
 
 <style scoped>
 .ticket {

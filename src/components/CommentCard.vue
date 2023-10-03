@@ -5,7 +5,7 @@
         <u> comments:</u>
       </p>
       <div>
-        <img :src="comment.creator.picture" alt="picture">
+        <img :src="comment?.creator.picture" alt="picture">
 
         <div class="border border-warning border-3 rounded bg-secondary p-3">
 
@@ -15,9 +15,10 @@
         <h3>{{ comment.creator.name }}</h3>
 
       </div>
-      <button @click="deleteComment(comment?.id)" v-if="comment?.creator.id == account?.id" class="btn btn-danger"
-        title="Delete comment"><i class="mdi mdi-delete"></i> </button>
-
+      <!-- <div v-if="comment?.creator.id == account?.id"> -->
+      <button @click="deleteComment(comment?.id)" class="btn btn-danger" title="Delete comment"><i
+          class="mdi mdi-delete"></i> </button>
+      <!-- </div> -->
 
     </div>
   </section>
@@ -28,7 +29,7 @@
 <script>
 import { commentsService } from '../services/CommentsService.js'
 import { AppState } from '../AppState.js'
-import { computed } from 'vue'
+import { computed, onUnmounted, watchEffect } from 'vue'
 import { logger } from '../utils/Logger.js'
 
 
@@ -38,6 +39,7 @@ export default {
     comment: { type: Object, required: true }
   },
   setup() {
+
 
     async function deleteComment(commentId) {
       try {

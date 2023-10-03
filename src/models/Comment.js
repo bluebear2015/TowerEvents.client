@@ -6,6 +6,9 @@ export class Comment {
         this.body = data.body
         this.isAttending = data.isAttending
         this.creator = data.creator
+        this.creatorImg = data.creator.picture
+        this.event = data.event
+        this.creatorName = data.creator.name
 
     }
 
